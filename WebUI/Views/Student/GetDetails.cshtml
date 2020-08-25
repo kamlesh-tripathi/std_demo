@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.DistrictId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
+            @Convert.ToDateTime(item.DateOfBirth).ToString("dd/MM/yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SSN)
