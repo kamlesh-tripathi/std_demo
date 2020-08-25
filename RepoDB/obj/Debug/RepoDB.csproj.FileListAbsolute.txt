@@ -1,0 +1,12 @@
+D:\StudentDemo\RepoDB\bin\Debug\RepoDB.dll.config
+D:\StudentDemo\RepoDB\bin\Debug\RepoDB.dll
+D:\StudentDemo\RepoDB\bin\Debug\RepoDB.pdb
+D:\StudentDemo\RepoDB\bin\Debug\EntityFramework.dll
+D:\StudentDemo\RepoDB\bin\Debug\EntityFramework.SqlServer.dll
+D:\StudentDemo\RepoDB\bin\Debug\EntityFramework.xml
+D:\StudentDemo\RepoDB\bin\Debug\EntityFramework.SqlServer.xml
+D:\StudentDemo\RepoDB\obj\Debug\RepoDB.csproj.CoreCompileInputs.cache
+D:\StudentDemo\RepoDB\obj\Debug\RepoDB.csproj.CopyComplete
+D:\StudentDemo\RepoDB\obj\Debug\RepoDB.dll
+D:\StudentDemo\RepoDB\obj\Debug\RepoDB.pdb
+D:\StudentDemo\RepoDB\obj\Debug\RepoDB.csprojAssemblyReference.cache

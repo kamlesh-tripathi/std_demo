@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StudentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="DistrictId" />
+          </Key>
+          <Property Name="DistrictId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentId" />
+          </Key>
+          <Property Name="EnrollmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="SchoolYear" Type="varchar" MaxLength="4" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="SchoolYear" Type="varchar" MaxLength="4" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DistrictId" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="SSN" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Enrollment_Students1">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_Students1">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentDBModelStoreContainer">
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enrollment" EntityType="Self.Enrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Enrollment_Students1" Association="Self.FK_Enrollment_Students1">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Enrollment" EntitySet="Enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_Students1" Association="Self.FK_Service_Students1">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="DistrictId" />
+          </Key>
+          <Property Name="DistrictId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentId" />
+          </Key>
+          <Property Name="EnrollmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolYear" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Enrollment_Students1" FromRole="Enrollment" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolYear" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Service_Students1" FromRole="Service" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DistrictId" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="SSN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Enrollments" Relationship="Self.FK_Enrollment_Students1" FromRole="Students" ToRole="Enrollment" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_Service_Students1" FromRole="Students" ToRole="Service" />
+        </EntityType>
+        <Association Name="FK_Enrollment_Students1">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="Enrollment" Type="Self.Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_Students1">
+          <End Role="Students" Type="Self.Student" Multiplicity="1" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Enrollments" EntityType="Self.Enrollment" />
+          <EntitySet Name="Services" EntityType="Self.Service" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <AssociationSet Name="FK_Enrollment_Students1" Association="Self.FK_Enrollment_Students1">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Enrollment" EntitySet="Enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_Students1" Association="Self.FK_Service_Students1">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StudentDBModelStoreContainer" CdmEntityContainer="StudentDBEntities">
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="StudentDBModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enrollments">
+            <EntityTypeMapping TypeName="StudentDBModel.Enrollment">
+              <MappingFragment StoreEntitySet="Enrollment">
+                <ScalarProperty Name="EnrollmentId" ColumnName="EnrollmentId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="StudentDBModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="StudentDBModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <br />
+    <br />
+    <div>
+        @using (Html.BeginForm("GetDetails", "Student", FormMethod.Post))
+        {
+            <input type="number" name="districtId" />
+            <input type="submit" value="Get All Student" />
+        }
+    </div>
+
+    <div>
+        @using (Html.BeginForm("GetServiceDetails", "Student", FormMethod.Post))
+        {
+            <input type="number" name="schoolYear" />
+            <input type="submit" value="Get All Student Service" />
+        }
+    </div>
+
+    <div>
+        @using (Html.BeginForm("GetEnrollmentDetails", "Student", FormMethod.Post))
+        {
+            <input type="number" name="schoolYear" />
+            <input type="submit" value="Get All Student" />
+        }
+    </div>
+</div>
